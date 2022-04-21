@@ -1,9 +1,9 @@
-import usersDao from '../database/users/users-dao.js'
+import usersDao from '../database/users/users-dao'
 
 const userController = (app) => {
   app.get('/api/users', findAllUsers)
   app.get('/api/users/:id', findUserById)
-  app.get('/api/users/email/:email', findUserByEmail)
+  app.get('/api/users/username/:username', findUserByUsername)
   app.post('/api/users/credentials', findUserByCredentials)
   app.post('/api/users', createUser)
   app.put('/api/users/:id', updateUser)
@@ -25,9 +25,9 @@ const findUserById = async (req, res) => {
   }
 }
 
-const findUserByEmail = async (req, res) => {
-  const email = req.params.email
-  const user = await usersDao.findUserByEmail(email)
+const findUserByUsername = async (req, res) => {
+  const username = req.params.username
+  const user = await usersDao.findUserByUsername(username)
   if (user) {
     res.json(user)
   } else {
@@ -37,9 +37,9 @@ const findUserByEmail = async (req, res) => {
 
 const findUserByCredentials = async (req, res) => {
   const credentials = req.body
-  const { email, password } = credentials
+  const { username, password } = credentials
   const user = await usersDao.findUserByCredentials(
-    email, password
+    username, password
   )
   if (user) {
     res.sendStatus(200)

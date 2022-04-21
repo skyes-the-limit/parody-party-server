@@ -9,15 +9,15 @@ const findUserById = (id) => {
   // return userModel.find({_id: id})
 }
 
-const findUserByEmail = (email) => {
-  userModel.findOne({ email })
-  // userModel.findOne({email: email})
-  // userModel.find({email: email})
+const findUserByUsername = (username) => {
+  userModel.findOne({ username })
+  // userModel.findOne({username: username})
+  // userModel.find({username: username})
 }
 
-const findUserByCredentials = (email, password) => {
-  return userModel.findOne({ email, password })
-  // userModel.findOne({email: email, password: password})
+const findUserByCredentials = (username, password) => {
+  return userModel.findOne({ username, password })
+  // userModel.findOne({username: username, password: password})
 }
 
 const createUser = (user) => {
@@ -30,7 +30,7 @@ const updateUser = (id, user) => {
     { $set: user }
     // {
     //   $set: {
-    //     email: user.email,
+    //     username: user.username,
     //     password: user.password,
     //     firstName: user.firstName,
     //     lastName: user.lastName
@@ -46,7 +46,7 @@ const deleteUser = (id) => {
 export default {
   findAllUsers,
   findUserById,
-  findUserByEmail,
+  findUserByUsername,
   findUserByCredentials,
   createUser,
   updateUser,
@@ -57,7 +57,7 @@ export default {
 //   findUserByCredentials: findUserByCredentials,
 //   findUserById: findUserById,
 //   findAllUsers: findAllUsers,
-//   findUserByEmail: findUserByEmail,
+//   findUserByUsername: findUserByUsername,
 //   createUser: createUser,
 //   deleteUser: deleteUser,
 //   updateUser: updateUser
