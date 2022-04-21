@@ -24,6 +24,44 @@ const createUser = (user) => {
   return userModel.create(user)
 }
 
+const grantCreatorRole = (id) => {
+  userModel.updateOne(
+    { _id: id },
+    {
+      $set: {
+        role: 'creator'
+      }
+    }
+    // {
+    //   $set: {
+    //     username: user.username,
+    //     password: user.password,
+    //     firstName: user.firstName,
+    //     lastName: user.lastName
+    //   }
+    // }
+  )
+}
+
+const grantAdminRole = (id) => {
+  userModel.updateOne(
+    { _id: id },
+    {
+      $set: {
+        role: 'admin'
+      }
+    }
+    // {
+    //   $set: {
+    //     username: user.username,
+    //     password: user.password,
+    //     firstName: user.firstName,
+    //     lastName: user.lastName
+    //   }
+    // }
+  )
+}
+
 const updateUser = (id, user) => {
   userModel.updateOne(
     { _id: id },
@@ -49,6 +87,8 @@ export default {
   findUserByUsername,
   findUserByCredentials,
   createUser,
+  grantCreatorRole,
+  grantAdminRole,
   updateUser,
   deleteUser
 }

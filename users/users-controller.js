@@ -6,6 +6,8 @@ const userController = (app) => {
   app.get('/api/users/username/:username', findUserByUsername)
   app.post('/api/users/credentials', findUserByCredentials)
   app.post('/api/users', createUser)
+  app.put('/api/users/creator/:id', grantCreatorRole)
+  app.put('/api/users/admin/:id', grantAdminRole)
   app.put('/api/users/:id', updateUser)
   app.delete('/api/users/:id', deleteUser)
 }
@@ -58,6 +60,18 @@ const updateUser = async (req, res) => {
   const user = req.body
   const userId = req.params.id
   const status = await usersDao.updateUser(userId, user)
+  res.json(status)
+}
+
+const grantCreatorRole = async (req, res) => {
+  const userId = req.params.id
+  const status = await usersDao.grantCreatorRole(userId)
+  res.json(status)
+}
+
+const grantAdminRole = async (req, res) => {
+  const userId = req.params.id
+  const status = await usersDao.grantAdminRole(userId)
   res.json(status)
 }
 
