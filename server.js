@@ -1,17 +1,28 @@
-import express from 'express';
-import cors from 'cors';
-import mongoose from 'mongoose';
+import express from 'express'
+import session from 'express-session'
+import cors from 'cors'
+import mongoose from 'mongoose'
 import 'dotenv/config'
 
-import helloController from "./controllers/hello-controller.js";
+import usersController from './users/users-controller.js'
 
-const CONNECTION_STRING = process.env.DB_CONNECTION_STRING || 'mongodb://127.0.0.1:27017/webdev'
-mongoose.connect(CONNECTION_STRING);
+const app = express()
 
-const app = express();
-app.use(express.json());
-app.use(cors());
+const CONNECTION_STRING = process.env.DB_CONNECTION_STRING || 'mongodb://127.0.0.1:27017/parody-party'
+mongoose.connect(CONNECTION_STRING)
 
-helloController(app);
+app.use(cors(
+  // {
+  //   credentials: true,
+  //   origin: 'http://localhost:3000'
+  // }
+))
+app.use(session({
+  secret: 'SECRETO',
+  cookie: { secure: false }
+}))
+app.use(express.json())
+
+usersController(app)
 
 app.listen(process.env.PORT || 4000)
