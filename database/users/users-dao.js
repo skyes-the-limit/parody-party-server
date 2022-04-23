@@ -10,7 +10,7 @@ const findUserById = (id) => {
 }
 
 const findUserByUsername = (username) => {
-  userModel.findOne({ username })
+  return userModel.findOne({ username })
   // userModel.findOne({username: username})
   // userModel.find({username: username})
 }
