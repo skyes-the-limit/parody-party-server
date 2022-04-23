@@ -4,7 +4,8 @@ import cors from 'cors'
 import mongoose from 'mongoose'
 import 'dotenv/config'
 
-import usersController from './users/users-controller.js'
+import usersController from './controllers/users-controller.js'
+import searchController from './controllers/search-controller.js'
 
 const app = express()
 
@@ -24,5 +25,6 @@ app.use(session({
 app.use(express.json())
 
 usersController(app)
+searchController(app)
 
 app.listen(process.env.PORT || 4000)

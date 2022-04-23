@@ -1,15 +1,17 @@
 import usersDao from '../database/users/users-dao.js'
 
+const USERS_API_BASE = '/api/users'
+
 const userController = (app) => {
-  app.get('/api/users', findAllUsers)
-  app.get('/api/users/:id', findUserById)
-  app.get('/api/users/username/:username', findUserByUsername)
-  app.post('/api/users/credentials', findUserByCredentials)
-  app.post('/api/users', createUser)
-  app.put('/api/users/creator', grantCreatorRole)
-  app.put('/api/users/admin', grantAdminRole)
-  app.put('/api/users/:id', updateUser)
-  app.delete('/api/users/:id', deleteUser)
+  app.get(USERS_API_BASE, findAllUsers)
+  app.get(`${USERS_API_BASE}/:id`, findUserById)
+  app.get(`${USERS_API_BASE}/username/:username`, findUserByUsername)
+  app.post(`${USERS_API_BASE}/credentials`, findUserByCredentials)
+  app.post(USERS_API_BASE, createUser)
+  app.put(`${USERS_API_BASE}/creator`, grantCreatorRole)
+  app.put(`${USERS_API_BASE}/admin`, grantAdminRole)
+  app.put(`${USERS_API_BASE}/:id`, updateUser)
+  app.delete(`${USERS_API_BASE}/:id`, deleteUser)
 }
 
 const findAllUsers = async (req, res) => {
