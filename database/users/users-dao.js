@@ -25,7 +25,7 @@ const createUser = (user) => {
 }
 
 const grantCreatorRole = (id) => {
-  userModel.updateOne(
+  return userModel.updateOne(
     { _id: id },
     {
       $set: {
@@ -44,7 +44,7 @@ const grantCreatorRole = (id) => {
 }
 
 const grantAdminRole = (id) => {
-  userModel.updateOne(
+  return userModel.updateOne(
     { _id: id },
     {
       $set: {
@@ -63,7 +63,7 @@ const grantAdminRole = (id) => {
 }
 
 const updateUser = (id, user) => {
-  userModel.updateOne(
+  return userModel.updateOne(
     { _id: id },
     { $set: user }
     // {
