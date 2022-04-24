@@ -1,4 +1,4 @@
-import parodyModel from './parody-model'
+import parodyModel from './parody-model.js'
 
 const findAllParodies = () => {
   return parodyModel.find().sort({ likes: -1 })

@@ -1,4 +1,4 @@
-import parodyDao from '../database/parody/parody-dao'
+import parodyDao from '../database/parody/parody-dao.js'
 
 const PARODY_API_BASE = '/api/parody'
 
@@ -39,7 +39,7 @@ const findParodyByAuthor = async (req, res) => {
 
 const findParodyByOriginal = async (req, res) => {
   const originalGeniusID = req.params.originalGeniusID
-  const parodies = await parodyDao.findParodyById(originalGeniusID)
+  const parodies = await parodyDao.findParodyByOriginal(originalGeniusID)
   if (parodies) {
     res.json(parodies)
   } else {
