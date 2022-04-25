@@ -64,7 +64,6 @@ const findUserByCredentials = async (req, res) => {
   }
 }
 
-// TODO: Ensure "username already in use" case is properly handled
 const createUser = async (req, res) => {
   try {
     const user = req.body

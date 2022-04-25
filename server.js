@@ -6,6 +6,7 @@ import 'dotenv/config'
 
 import usersController from './controllers/users-controller.js'
 import searchController from './controllers/search-controller.js'
+import parodyController from './controllers/parody-controller.js'
 
 const app = express()
 
@@ -26,5 +27,6 @@ app.use(express.json())
 
 usersController(app)
 searchController(app)
+parodyController(app)
 
 app.listen(process.env.PORT || 4000)
