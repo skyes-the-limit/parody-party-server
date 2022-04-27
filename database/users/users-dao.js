@@ -1,27 +1,23 @@
 import userModel from './users-model.js'
 
 const findAllUsers = () => {
-  return userModel.find()
+  return userModel.find().select({ password: 0 })
 }
 
 const findUserById = (id) => {
-  return userModel.findById(id)
-  // return userModel.find({_id: id})
+  return userModel.findById(id).select({ password: 0 })
 }
 
 const findUserByUsername = (username) => {
-  return userModel.findOne({ username })
-  // userModel.findOne({username: username})
-  // userModel.find({username: username})
+  return userModel.findOne({ username }).select({ password: 0 })
 }
 
 const findUserByCredentials = (username, password) => {
   return userModel.findOne({ username, password })
-  // userModel.findOne({username: username, password: password})
 }
 
 const createUser = (user) => {
-  return userModel.create(user)
+  return userModel.create(user).select({ password: 0 })
 }
 
 const grantCreatorRole = (id) => {
@@ -31,16 +27,7 @@ const grantCreatorRole = (id) => {
       $set: {
         role: 'creator'
       }
-    }
-    // {
-    //   $set: {
-    //     username: user.username,
-    //     password: user.password,
-    //     firstName: user.firstName,
-    //     lastName: user.lastName
-    //   }
-    // }
-  )
+    }).select({ password: 0 })
 }
 
 const grantAdminRole = (id) => {
@@ -50,31 +37,14 @@ const grantAdminRole = (id) => {
       $set: {
         role: 'admin'
       }
-    }
-    // {
-    //   $set: {
-    //     username: user.username,
-    //     password: user.password,
-    //     firstName: user.firstName,
-    //     lastName: user.lastName
-    //   }
-    // }
-  )
+    }).select({ password: 0 })
 }
 
 const updateUser = (id, user) => {
   return userModel.updateOne(
     { _id: id },
     { $set: user }
-    // {
-    //   $set: {
-    //     username: user.username,
-    //     password: user.password,
-    //     firstName: user.firstName,
-    //     lastName: user.lastName
-    //   }
-    // }
-  )
+  ).select({ password: 0 })
 }
 
 const deleteUser = (id) => {
@@ -92,13 +62,3 @@ export default {
   updateUser,
   deleteUser
 }
-
-//   {
-//   findUserByCredentials: findUserByCredentials,
-//   findUserById: findUserById,
-//   findAllUsers: findAllUsers,
-//   findUserByUsername: findUserByUsername,
-//   createUser: createUser,
-//   deleteUser: deleteUser,
-//   updateUser: updateUser
-// }
