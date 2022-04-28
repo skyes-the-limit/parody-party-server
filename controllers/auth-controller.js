@@ -11,7 +11,7 @@ const authController = (app) => {
 
 const signup = async (req, res) => {
   const credentials = req.body
-  const existingUser = await usersDao.findUserByEmail(credentials.email)
+  const existingUser = await usersDao.findUserByUsername(credentials.username)
   if (existingUser) {
     return res.sendStatus(403)
   } else {
@@ -23,10 +23,9 @@ const signup = async (req, res) => {
 
 const login = async (req, res) => {
   const credentials = req.body
-  const profile = await usersDao.findUserByCredentials(credentials.email, credentials.password)
+  const profile = await usersDao.findUserByCredentials(credentials.username, credentials.password)
   if (profile) {
     req.session.profile = profile
-    res.json(profile)
     return
   }
   res.sendStatus(403)

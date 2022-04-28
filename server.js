@@ -15,10 +15,10 @@ const CONNECTION_STRING = process.env.DB_CONNECTION_STRING || 'mongodb://127.0.0
 mongoose.connect(CONNECTION_STRING)
 
 app.use(cors(
-  // {
-  //   credentials: true,
-  //   origin: 'http://localhost:3000'
-  // }
+  {
+    credentials: true,
+    origin: 'http://localhost:3000'
+  }
 ))
 app.use(session({
   secret: 'SECRETO',

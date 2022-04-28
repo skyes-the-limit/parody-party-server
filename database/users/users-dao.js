@@ -17,7 +17,7 @@ const findUserByCredentials = (username, password) => {
 }
 
 const createUser = (user) => {
-  return userModel.create(user).select({ password: 0 })
+  return userModel.create(user)
 }
 
 const grantCreatorRole = (id) => {

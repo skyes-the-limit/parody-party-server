@@ -18,7 +18,6 @@ const searchGenius = async (req, res) => {
 
   try {
     const response = await axios.get(url, config)
-    console.log(response.data)
     res.json(response.data.response)
   } catch (err) {
     console.error(err)
@@ -36,7 +35,6 @@ const getGeniusSongById = async (req, res) => {
 
   try {
     const response = await axios.get(url, config)
-    console.log(response.data)
     res.json(response.data.response)
   } catch (err) {
     console.error(err)
