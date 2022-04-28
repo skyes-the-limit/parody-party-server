@@ -7,6 +7,7 @@ import 'dotenv/config'
 import usersController from './controllers/users-controller.js'
 import searchController from './controllers/search-controller.js'
 import parodyController from './controllers/parody-controller.js'
+import authController from './controllers/auth-controller.js'
 
 const app = express()
 
@@ -14,10 +15,10 @@ const CONNECTION_STRING = process.env.DB_CONNECTION_STRING || 'mongodb://127.0.0
 mongoose.connect(CONNECTION_STRING)
 
 app.use(cors(
-  // {
-  //   credentials: true,
-  //   origin: 'http://localhost:3000'
-  // }
+  {
+    credentials: true,
+    origin: 'http://localhost:3000'
+  }
 ))
 app.use(session({
   secret: 'SECRETO',
@@ -28,5 +29,6 @@ app.use(express.json())
 usersController(app)
 searchController(app)
 parodyController(app)
+authController(app)
 
 app.listen(process.env.PORT || 4000)
