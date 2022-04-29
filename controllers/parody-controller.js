@@ -8,7 +8,7 @@ const parodyController = (app) => {
   app.get(`${PARODY_API_BASE}/author/:author`, findParodyByAuthor)
   app.get(`${PARODY_API_BASE}/original/:originalGeniusID`, findParodyByOriginal)
   app.post(PARODY_API_BASE, createParody)
-  app.put(`${PARODY_API_BASE}/lyrics`, updateParodyLyrics)
+  app.put(PARODY_API_BASE, updateParody)
   app.delete(`${PARODY_API_BASE}/:id`, deleteParody)
 }
 
@@ -53,10 +53,11 @@ const createParody = async (req, res) => {
   res.json(insertedParody)
 }
 
-const updateParodyLyrics = async (req, res) => {
-  const parodyLyrics = req.body
-  const parodyId = req.params.id
-  const status = await parodyDao.updateParodyLyrics(parodyId, parodyLyrics)
+const updateParody = async (req, res) => {
+  const newParody = req.body
+  console.log(newParody)
+  const parodyId = newParody._id
+  const status = await parodyDao.updateParody(parodyId, newParody)
   res.json(status)
 }
 
