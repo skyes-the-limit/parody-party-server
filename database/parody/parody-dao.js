@@ -27,6 +27,20 @@ const updateParodyLyrics = (id, lyrics) => {
   )
 }
 
+const incrementParodyLikes = (id) => {
+  return parodyModel.updateOne(
+    { _id: id },
+    { $inc: { likes: 1 } }
+  )
+}
+
+const decrementParodyLikes = (id) => {
+  return parodyModel.updateOne(
+    { _id: id },
+    { $inc: { likes: -1 } }
+  )
+}
+
 const deleteParody = (id) => {
   return parodyModel.deleteOne({ _id: id })
 }
@@ -38,5 +52,7 @@ export default {
   findParodyByOriginal,
   createParody,
   updateParodyLyrics,
+  incrementParodyLikes,
+  decrementParodyLikes,
   deleteParody
 }

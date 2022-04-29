@@ -47,6 +47,26 @@ const updateUser = (id, user) => {
   ).select({ password: 0 })
 }
 
+const likeParody = (userId, parodyId) => {
+  return userModel.updateOne(
+    { _id: userId },
+    {
+      $push: {
+        likes: parodyId
+      }
+    }).select({ password: 0 })
+}
+
+const dislikeParody = (userId, parodyId) => {
+  return userModel.updateOne(
+    { _id: userId },
+    {
+      $pull: {
+        likes: parodyId
+      }
+    }).select({ password: 0 })
+}
+
 const deleteUser = (id) => {
   return userModel.deleteOne({ _id: id })
 }
@@ -60,5 +80,7 @@ export default {
   grantCreatorRole,
   grantAdminRole,
   updateUser,
+  likeParody,
+  dislikeParody,
   deleteUser
 }
