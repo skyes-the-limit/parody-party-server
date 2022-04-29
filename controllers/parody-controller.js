@@ -4,7 +4,8 @@ const PARODY_API_BASE = '/api/parody'
 
 const parodyController = (app) => {
   app.get(PARODY_API_BASE, findAllParodies)
-  app.get(`${PARODY_API_BASE}/:id`, findParodyById)
+  app.get(`${PARODY_API_BASE}/verified`, findVerifiedParodies)
+  app.get(`${PARODY_API_BASE}/id/:id`, findParodyById)
   app.get(`${PARODY_API_BASE}/author/:author`, findParodyByAuthor)
   app.get(`${PARODY_API_BASE}/original/:originalGeniusID`, findParodyByOriginal)
   app.post(PARODY_API_BASE, createParody)
@@ -14,6 +15,11 @@ const parodyController = (app) => {
 
 const findAllParodies = async (req, res) => {
   const parodies = await parodyDao.findAllParodies()
+  res.json(parodies)
+}
+
+const findVerifiedParodies = async (req, res) => {
+  const parodies = await parodyDao.findVerifiedParodies()
   res.json(parodies)
 }
 

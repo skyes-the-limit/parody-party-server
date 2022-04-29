@@ -1,7 +1,23 @@
 import parodyModel from './parody-model.js'
+import userModel from '../users/users-model.js'
 
 const findAllParodies = () => {
   return parodyModel.find().sort({ likes: -1 })
+}
+
+const findVerifiedParodies = () => {
+  return userModel.aggregate([{
+    $match: {
+      role: 'creator'
+    }
+  }, {
+    $lookup: {
+      from: 'parodies',
+      localField: 'username',
+      foreignField: 'author',
+      as: 'parodies'
+    }
+  }])
 }
 
 const findParodyById = (id) => {
@@ -47,6 +63,7 @@ const deleteParody = (id) => {
 
 export default {
   findAllParodies,
+  findVerifiedParodies,
   findParodyById,
   findParodyByAuthor,
   findParodyByOriginal,
