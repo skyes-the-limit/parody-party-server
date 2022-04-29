@@ -75,6 +75,7 @@ const likeParody = async (req, res) => {
     }
   }
 
+  req.session.profile = await usersDao.findUserById(profile._id)
   res.json(status)
 }
 
