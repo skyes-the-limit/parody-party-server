@@ -13,7 +13,11 @@ const findUserByUsername = (username) => {
 }
 
 const findUserByCredentials = (username, password) => {
-  return userModel.findOne({ username, password })
+  return userModel.findOne({ username, password }).select({ password: 0 })
+}
+
+const findUsersAwaitingVerification = async () => {
+  return userModel.find({ requestedVerification: true }).select({ password: 0 })
 }
 
 const createUser = (user) => {
@@ -25,7 +29,8 @@ const grantCreatorRole = (id) => {
     { _id: id },
     {
       $set: {
-        role: 'creator'
+        role: 'creator',
+        requestedVerification: false
       }
     }).select({ password: 0 })
 }
@@ -35,9 +40,21 @@ const grantAdminRole = (id) => {
     { _id: id },
     {
       $set: {
-        role: 'admin'
+        role: 'admin',
+        requestedVerification: false
       }
     }).select({ password: 0 })
+}
+
+const requestVerification = (id) => {
+  return userModel.updateOne(
+    { _id: id },
+    {
+      $set: {
+        requestedVerification: true
+      }
+    }
+  )
 }
 
 const updateUser = (id, user) => {
@@ -76,9 +93,11 @@ export default {
   findUserById,
   findUserByUsername,
   findUserByCredentials,
+  findUsersAwaitingVerification,
   createUser,
   grantCreatorRole,
   grantAdminRole,
+  requestVerification,
   updateUser,
   likeParody,
   dislikeParody,

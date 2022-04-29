@@ -6,10 +6,12 @@ const userController = (app) => {
   app.get(USERS_API_BASE, findAllUsers)
   app.get(`${USERS_API_BASE}/:id`, findUserById)
   app.get(`${USERS_API_BASE}/username/:username`, findUserByUsername)
+  app.get(`${USERS_API_BASE}/verification/awaiting`, findUsersAwaitingVerification)
   app.post(`${USERS_API_BASE}/credentials`, findUserByCredentials)
   app.post(USERS_API_BASE, createUser)
-  app.put(`${USERS_API_BASE}/creator`, grantCreatorRole)
-  app.put(`${USERS_API_BASE}/admin`, grantAdminRole)
+  app.put(`${USERS_API_BASE}/creator/:id`, grantCreatorRole)
+  app.put(`${USERS_API_BASE}/admin/:id`, grantAdminRole)
+  app.put(`${USERS_API_BASE}/verify/:id`, requestVerification)
   app.put(`${USERS_API_BASE}/:id`, updateUser)
   app.delete(`${USERS_API_BASE}/:id`, deleteUser)
 }
@@ -44,6 +46,11 @@ const findUserByUsername = async (req, res) => {
   }
 }
 
+const findUsersAwaitingVerification = async (req, res) => {
+  const users = await usersDao.findUsersAwaitingVerification()
+  res.json(users)
+}
+
 const findUserByCredentials = async (req, res) => {
   const credentials = req.body
   const { username, password } = credentials
@@ -51,8 +58,6 @@ const findUserByCredentials = async (req, res) => {
     const user = await usersDao.findUserByCredentials(
       username, password
     )
-    // TODO: Delete user password before returning json
-
     if (user) {
       res.json(user)
     } else {
@@ -68,7 +73,6 @@ const createUser = async (req, res) => {
   try {
     const user = req.body
     const insertedUser = await usersDao.createUser(user)
-    // TODO: Delete user password before returning json
     res.json(insertedUser)
   } catch (err) {
     console.error(err)
@@ -91,8 +95,8 @@ const updateUser = async (req, res) => {
 
 const grantCreatorRole = async (req, res) => {
   try {
-    const username = req.params.username
-    const status = await usersDao.grantCreatorRole(username)
+    const id = req.params.id
+    const status = await usersDao.grantCreatorRole(id)
     res.json(status)
   } catch (err) {
     console.error(err)
@@ -102,8 +106,19 @@ const grantCreatorRole = async (req, res) => {
 
 const grantAdminRole = async (req, res) => {
   try {
-    const username = req.params.username
-    const status = await usersDao.grantAdminRole(username)
+    const id = req.params.id
+    const status = await usersDao.grantAdminRole(id)
+    res.json(status)
+  } catch (err) {
+    console.error(err)
+    res.sendStatus(500)
+  }
+}
+
+const requestVerification = async (req, res) => {
+  try {
+    const id = req.params.id
+    const status = await usersDao.requestVerification(id)
     res.json(status)
   } catch (err) {
     console.error(err)

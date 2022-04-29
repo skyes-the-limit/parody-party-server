@@ -6,7 +6,8 @@ const usersSchema = mongoose.Schema(
     password: { type: String, required: true },
     role: { type: String, enum: ['user', 'creator', 'admin'], default: 'user', required: true },
     displayName: { type: String },
-    likes: { type: Array }
+    likes: { type: Array },
+    requestedVerification: { type: Boolean, default: false }
   },
   {
     collection: 'users'
