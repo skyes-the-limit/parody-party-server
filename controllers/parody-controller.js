@@ -55,7 +55,6 @@ const createParody = async (req, res) => {
 
 const updateParody = async (req, res) => {
   const newParody = req.body
-  console.log(newParody)
   const parodyId = newParody._id
   const status = await parodyDao.updateParody(parodyId, newParody)
   res.json(status)
