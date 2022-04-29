@@ -20,10 +20,10 @@ const createParody = (parody) => {
   return parodyModel.create(parody)
 }
 
-const updateParodyLyrics = (id, lyrics) => {
+const updateParody = (id, parody) => {
   return parodyModel.updateOne(
     { _id: id },
-    { $set: { lyrics } }
+    { $set: parody }
   )
 }
 
@@ -51,7 +51,7 @@ export default {
   findParodyByAuthor,
   findParodyByOriginal,
   createParody,
-  updateParodyLyrics,
+  updateParody,
   incrementParodyLikes,
   decrementParodyLikes,
   deleteParody
