@@ -12,7 +12,7 @@ const userController = (app) => {
   app.put(`${USERS_API_BASE}/creator/:id`, grantCreatorRole)
   app.put(`${USERS_API_BASE}/admin/:id`, grantAdminRole)
   app.put(`${USERS_API_BASE}/verify/:id`, requestVerification)
-  app.put(`${USERS_API_BASE}/:id`, updateUser)
+  app.put(USERS_API_BASE, updateUser)
   app.delete(`${USERS_API_BASE}/:id`, deleteUser)
 }
 
@@ -83,8 +83,8 @@ const createUser = async (req, res) => {
 
 const updateUser = async (req, res) => {
   try {
-    const user = req.body
-    const userId = req.params.id
+    const user = req.body.user
+    const userId = user._id
     const status = await usersDao.updateUser(userId, user)
     res.json(status)
   } catch (err) {
