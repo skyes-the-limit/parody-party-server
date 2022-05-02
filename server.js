@@ -17,8 +17,8 @@ mongoose.connect(CONNECTION_STRING)
 app.use(cors(
   {
     credentials: true,
-    origin: 'http://localhost:3000'
-    // origin: 'https://parody-party.netlify.app'
+    // origin: 'http://localhost:3000'
+    origin: 'https://parody-party.netlify.app'
   }
 ))
 app.use(session({
