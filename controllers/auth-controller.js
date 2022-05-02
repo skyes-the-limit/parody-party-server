@@ -39,7 +39,7 @@ const profile = (req, res) => {
   if (profile) {
     res.json(profile)
   } else {
-    res.sendStatus(503)
+    res.sendStatus(403)
   }
 }
 
